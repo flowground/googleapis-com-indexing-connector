@@ -1,0 +1,84 @@
+{
+    "title": "Indexing",
+    "description": "Notifies Google when your web pages change.",
+    "docsUrl": "https://developers.google.com/search/apis/indexing-api/",
+    "url": "https://api.apis.guru/v2/specs/googleapis.com/indexing/v3/swagger.json",
+    "envVars": {
+        "OAUTH_CLIENT_ID": {
+            "description": "OAuth Client ID"
+        },
+        "OAUTH_CLIENT_SECRET": {
+            "description": "OAuth Client Secret"
+        }
+    },
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://indexing.googleapis.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "Oauth2": {
+                "label": "Oauth 2.0 authentication",
+                "viewClass": "OAuthFieldView"
+            }
+        },
+        "oauth2": {
+            "client_id": "{{OAUTH_CLIENT_ID}}",
+            "client_secret": "{{OAUTH_CLIENT_SECRET}}",
+            "auth_uri": "https://accounts.google.com/o/oauth2/auth"
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "indexing_urlNotifications_getMetadata": {
+            "main": "./lib/actions/indexing_urlNotifications_getMetadata.js",
+            "title": "Gets metadata about a Web Document. This method can _only_ be used to query\nURLs that were previously seen in successful Indexing API notifications.\nIncludes the latest `UrlNotification` received via this API.",
+            "description": "Gets metadata about a Web Document. This method can _only_ be used to query\nURLs that were previously seen in successful Indexing API notifications.\nIncludes the latest `UrlNotification` received via this API.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/indexing_urlNotifications_getMetadata.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "indexing_urlNotifications_publish": {
+            "main": "./lib/actions/indexing_urlNotifications_publish.js",
+            "title": "Notifies that a URL has been updated or deleted.",
+            "description": "Notifies that a URL has been updated or deleted.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/indexing_urlNotifications_publish.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
